@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrackieBag — Smart GPS Safety Bags for Kids & Teens | Carry Smart. Stay Connected. Stay Safe.</title>
+<meta name="description" content="TrackieBag makes GPS-enabled school bags for children and teenagers aged 4–15. Real-time location, SOS alerts, safe-zone notifications and stylish, comfortable design parents trust.">
+<meta name="keywords" content="GPS school bag, smart school bag, GPS bag for kids, kids GPS tracker bag, smart backpack for children, GPS tracking backpack, child safety bag, GPS school bag India">
+<meta property="og:title" content="TrackieBag — Smart GPS Safety Bags for Kids & Teens">
+<meta property="og:description" content="Stylish, comfortable and GPS-enabled bags designed for children and teenagers aged 4–15.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B1F3A;
+  --navy-2:#0F2A50;
+  --electric:#2F6FED;
+  --sky:#8ECBFF;
+  --purple:#8B7CF6;
+  --white:#FFFFFF;
+  --lime:#C6FF3D;
+  --ink:#0B1F3A;
+  --muted:#5B6B85;
+  --muted-light:#8B98AF;
+  --bg:#F5F8FF;
+  --card:#FFFFFF;
+  --line:rgba(11,31,58,0.09);
+  --shadow:0 20px 50px -20px rgba(11,31,58,0.25);
+  --shadow-sm:0 10px 25px -12px rgba(11,31,58,0.2);
+  --radius:20px;
+  --radius-sm:12px;
+  --ff-head:'Space Grotesk', sans-serif;
+  --ff-body:'Inter', sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--ff-body);
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+h1,h2,h3,h4{font-family:var(--ff-head);margin:0;line-height:1.1;letter-spacing:-0.02em;}
+p{margin:0;line-height:1.6;}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px;}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--electric);
+  background:rgba(47,111,237,0.08);
+  padding:7px 14px;border-radius:99px;
+}
+.section{padding:100px 0;position:relative;}
+.section-head{max-width:640px;margin:0 0 52px;}
+.section-head h2{font-size:clamp(30px,4vw,44px);margin-top:14px;}
+.section-head p{margin-top:16px;font-size:17px;color:var(--muted);}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+:focus-visible{outline:3px solid var(--electric);outline-offset:3px;}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;scroll-behavior:auto !important;}
+}
+
+/* ===== Signal ring signature element ===== */
+.signal{position:relative;width:1px;height:1px;}
+.signal .ring{
+  position:absolute;left:50%;top:50%;border-radius:50%;
+  border:1.5px solid var(--lime);
+  transform:translate(-50%,-50%);
+  animation:signalPulse 3.2s cubic-bezier(.2,.7,.3,1) infinite;
+  opacity:0;
+}
+.signal .ring:nth-child(2){animation-delay:1.05s;}
+.signal .ring:nth-child(3){animation-delay:2.1s;}
+@keyframes signalPulse{
+  0%{width:14px;height:14px;opacity:.9;}
+  85%{opacity:0;}
+  100%{width:220px;height:220px;opacity:0;}
+}
+.pin{
+  position:relative;width:14px;height:14px;border-radius:50%;
+  background:var(--lime);
+  box-shadow:0 0 0 5px rgba(198,255,61,0.25);
+}
+
+/* ===== Buttons ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:15px 26px;border-radius:99px;border:none;
+  font-weight:700;font-size:15px;letter-spacing:0.01em;
+  transition:transform .25s cubic-bezier(.2,.8,.3,1), box-shadow .25s, background .25s;
+  white-space:nowrap;
+}
+.btn-primary{background:var(--lime);color:var(--navy);box-shadow:0 12px 24px -10px rgba(198,255,61,0.55);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 30px -10px rgba(198,255,61,0.7);}
+.btn-outline{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,0.35);}
+.btn-outline:hover{background:rgba(255,255,255,0.1);transform:translateY(-2px);}
+.btn-dark{background:var(--navy);color:var(--white);}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+.btn-ghost{background:rgba(11,31,58,0.06);color:var(--navy);}
+.btn-ghost:hover{background:rgba(11,31,58,0.1);}
+.btn-sm{padding:10px 18px;font-size:13.5px;}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none !important;}
+
+/* ===== Header ===== */
+header{
+  position:sticky;top:0;z-index:200;
+  background:rgba(245,248,255,0.85);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:78px;}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--ff-head);font-weight:700;font-size:20px;color:var(--navy);}
+.logo .mark{width:34px;height:34px;border-radius:10px;background:var(--navy);position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo .mark::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(198,255,61,0.3);}
+nav.primary{display:flex;align-items:center;gap:2px;}
+nav.primary a{padding:10px 15px;font-size:14.5px;font-weight:600;color:var(--muted);border-radius:99px;transition:.2s;}
+nav.primary a:hover{color:var(--navy);background:rgba(11,31,58,0.05);}
+.nav-actions{display:flex;align-items:center;gap:10px;}
+.icon-btn{
+  width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--white);
+  display:flex;align-items:center;justify-content:center;position:relative;transition:.2s;
+}
+.icon-btn:hover{border-color:var(--electric);transform:translateY(-1px);}
+.badge{
+  position:absolute;top:-4px;right:-4px;background:var(--electric);color:#fff;
+  font-size:10.5px;font-weight:800;min-width:18px;height:18px;border-radius:99px;
+  display:flex;align-items:center;justify-content:center;padding:0 4px;
+}
+.hamburger{display:none;background:none;border:none;width:42px;height:42px;align-items:center;justify-content:center;}
+.hamburger span{display:block;width:20px;height:2px;background:var(--navy);margin:3px 0;border-radius:2px;transition:.25s;}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative;background:radial-gradient(120% 140% at 15% -10%, #12315F 0%, var(--navy) 55%, #081527 100%);
+  color:#fff;padding:88px 0 130px;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(60% 60% at 30% 30%, black, transparent);
+}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr 0.95fr;gap:40px;align-items:center;}
+.hero-copy h1{font-size:clamp(36px,5.2vw,60px);color:#fff;max-width:620px;}
+.hero-copy .accent{color:var(--lime);}
+.hero-copy p.lead{margin-top:22px;font-size:18px;color:rgba(255,255,255,0.72);max-width:480px;}
+.hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+.trust-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:46px;}
+.trust-tags span{
+  font-size:12.5px;font-weight:700;color:rgba(255,255,255,0.85);
+  border:1px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.06);
+  padding:8px 14px;border-radius:99px;display:flex;align-items:center;gap:7px;
+}
+.trust-tags span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);}
+
+.hero-visual{position:relative;height:460px;}
+.bag-stage{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  animation:floatY 6s ease-in-out infinite;
+}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+.phone-card{
+  position:absolute;right:6%;top:8%;width:190px;background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.18);backdrop-filter:blur(12px);border-radius:20px;
+  padding:14px;box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+  animation:floatY 7s ease-in-out infinite reverse;
+}
+.phone-card .map{height:96px;border-radius:12px;background:linear-gradient(135deg,#1d3b6e,#0e2242);position:relative;overflow:hidden;margin-bottom:10px;}
+.phone-card .map .p{position:absolute;left:55%;top:45%;}
+.phone-card .row{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.7);margin-top:4px;}
+.phone-card .row b{color:#fff;}
+.stat-chip{
+  position:absolute;left:2%;bottom:6%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  backdrop-filter:blur(12px);border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:10px;
+  animation:floatY 5.5s ease-in-out infinite;
+}
+.stat-chip .n{font-family:var(--ff-head);font-weight:700;font-size:18px;color:#fff;}
+.stat-chip .l{font-size:11px;color:rgba(255,255,255,0.6);}
+
+/* ===== Category cards ===== */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.cat-card{
+  background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+  transition:transform .3s cubic-bezier(.2,.8,.3,1), box-shadow .3s;position:relative;
+}
+.cat-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);}
+.cat-art{height:220px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.cat-art.explorers{background:linear-gradient(160deg,#FFE9A8,#FFC978);}
+.cat-art.adventurers{background:linear-gradient(160deg,#AEE0FF,#6FB6FF);}
+.cat-art.teen{background:linear-gradient(160deg,#D9CBFF,#8B7CF6);}
+.cat-body{padding:26px 24px 28px;}
+.cat-body .age{font-size:12.5px;font-weight:700;color:var(--electric);text-transform:uppercase;letter-spacing:.08em;}
+.cat-body h3{font-size:22px;margin-top:8px;}
+.cat-body p{margin-top:8px;color:var(--muted);font-size:14.5px;}
+.cat-body .btn{margin-top:18px;width:100%;}
+
+/* ===== bag illustration (css) ===== */
+.bag-illustration{width:150px;height:180px;position:relative;}
+.bag-illustration .body{
+  position:absolute;left:10px;top:36px;width:130px;height:130px;border-radius:26px;
+  background:var(--bag-color, var(--electric));box-shadow:inset 0 -10px 18px rgba(0,0,0,0.12);
+}
+.bag-illustration .pocket{position:absolute;left:28px;top:70px;width:94px;height:56px;border-radius:16px;background:rgba(255,255,255,0.28);}
+.bag-illustration .strap{position:absolute;top:0;width:26px;height:70px;border-radius:14px;background:rgba(0,0,0,0.18);}
+.bag-illustration .strap.l{left:22px;}
+.bag-illustration .strap.r{right:22px;}
+.bag-illustration .zip{position:absolute;left:30px;top:64px;width:90px;height:3px;background:rgba(255,255,255,0.45);border-radius:3px;}
+.bag-illustration .gps-dot{position:absolute;right:16px;top:44px;width:16px;height:16px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px rgba(198,255,61,0.3);}
+
+/* ===== how it works ===== */
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.step-list{display:flex;flex-direction:column;gap:6px;}
+.step{display:flex;gap:20px;padding:26px 0;border-top:1px solid var(--line);}
+.step:last-child{border-bottom:1px solid var(--line);}
+.step .num{font-family:var(--ff-head);font-size:14px;font-weight:700;color:var(--electric);padding-top:3px;min-width:34px;}
+.step h4{font-size:19px;margin-bottom:8px;}
+.step p{color:var(--muted);font-size:14.5px;}
+.map-visual{
+  position:relative;height:420px;border-radius:var(--radius);
+  background:linear-gradient(160deg,var(--navy-2),var(--navy));overflow:hidden;
+}
+.map-visual::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,0.16) 1px, transparent 1px);
+  background-size:22px 22px;
+}
+.map-route{position:absolute;left:18%;top:70%;width:64%;height:2px;background:rgba(142,203,255,0.5);
+  transform:rotate(-24deg);border-radius:2px;}
+.map-pin-wrap{position:absolute;left:60%;top:32%;}
+.map-marker-2{position:absolute;left:20%;top:74%;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.5);}
+
+/* ===== feature cards ===== */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.feat-card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;
+  transition:transform .3s, box-shadow .3s, border-color .3s;
+}
+.feat-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-sm);border-color:transparent;}
+.feat-icon{
+  width:52px;height:52px;border-radius:14px;background:rgba(47,111,237,0.09);
+  display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;
+}
+.feat-card h4{font-size:17.5px;margin-bottom:8px;}
+.feat-card p{color:var(--muted);font-size:14px;}
+
+/* ===== shop ===== */
+.shop-toolbar{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  margin-bottom:34px;padding:16px 20px;background:var(--card);border-radius:16px;border:1px solid var(--line);
+}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:99px;padding:9px 16px;flex:1;min-width:180px;max-width:320px;}
+.search-box input{border:none;background:none;outline:none;font-size:14px;width:100%;font-family:inherit;color:var(--ink);}
+.filter-group{display:flex;gap:8px;flex-wrap:wrap;}
+.pill-select{
+  border:1px solid var(--line);background:var(--white);border-radius:99px;padding:9px 14px;
+  font-size:13px;font-weight:600;color:var(--navy);font-family:inherit;
+}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.chip{
+  border:1.5px solid var(--line);background:var(--white);border-radius:99px;padding:8px 16px;
+  font-size:13px;font-weight:700;color:var(--muted);transition:.2s;
+}
+.chip.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.chip:hover{border-color:var(--electric);}
+
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.product-card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  transition:transform .3s cubic-bezier(.2,.8,.3,1), box-shadow .3s;display:flex;flex-direction:column;
+}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+.product-media{
+  height:230px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.product-media .bag-illustration{transition:transform .5s cubic-bezier(.2,.8,.3,1);}
+.product-card:hover .product-media .bag-illustration{transform:scale(1.08) rotate(-2deg);}
+.gps-badge{
+  position:absolute;top:14px;left:14px;background:var(--navy);color:#fff;font-size:11px;font-weight:700;
+  padding:6px 11px;border-radius:99px;display:flex;align-items:center;gap:6px;
+}
+.gps-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);}
+.wish-btn{
+  position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.85);
+  border:none;display:flex;align-items:center;justify-content:center;font-size:16px;transition:.2s;
+}
+.wish-btn.active{color:#E8557A;}
+.product-info{padding:20px 22px 22px;flex:1;display:flex;flex-direction:column;}
+.product-info .age-tag{font-size:11.5px;font-weight:700;color:var(--electric);text-transform:uppercase;letter-spacing:.06em;}
+.product-info h3{font-size:18px;margin-top:6px;}
+.product-info .rating{font-size:12.5px;color:var(--muted);margin-top:6px;}
+.product-info .colors{display:flex;gap:6px;margin-top:12px;}
+.dot-color{width:16px;height:16px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);}
+.price-row{display:flex;align-items:center;justify-content:space-between;margin-top:16px;}
+.price{font-family:var(--ff-head);font-weight:700;font-size:19px;}
+.price .old{font-family:var(--ff-body);font-size:13px;color:var(--muted-light);text-decoration:line-through;font-weight:500;margin-right:6px;}
+.card-actions{display:flex;gap:8px;margin-top:16px;}
+.card-actions .btn{flex:1;padding:11px 10px;font-size:13px;}
+
+/* ===== demo dashboard ===== */
+.demo-panel{
+  background:linear-gradient(160deg,var(--navy-2),#081527);border-radius:28px;padding:8px;position:relative;
+  box-shadow:var(--shadow);
+}
+.demo-inner{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:24px;color:#fff;}
+.demo-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.demo-label{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);display:flex;align-items:center;gap:8px;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--lime);animation:blink 1.6s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+.demo-map{height:230px;border-radius:16px;position:relative;overflow:hidden;background:radial-gradient(120% 100% at 30% 20%, #1c3a6c, #0c1d3a 70%);margin-bottom:16px;}
+.demo-map::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px);background-size:20px 20px;}
+.demo-map .safe-zone{position:absolute;left:14%;top:18%;width:150px;height:150px;border-radius:50%;border:1.5px dashed rgba(198,255,61,0.55);background:rgba(198,255,61,0.06);}
+.demo-map .pin-wrap{position:absolute;left:58%;top:52%;}
+.demo-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.d-stat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px;}
+.d-stat .l{font-size:11px;color:rgba(255,255,255,0.55);margin-bottom:6px;}
+.d-stat .v{font-family:var(--ff-head);font-size:17px;font-weight:700;}
+.batt-bar{width:100%;height:6px;background:rgba(255,255,255,0.12);border-radius:99px;margin-top:8px;overflow:hidden;}
+.batt-fill{height:100%;background:var(--lime);border-radius:99px;width:74%;}
+.sos-row{display:flex;align-items:center;justify-content:space-between;gap:14px;}
+.sos-btn{
+  background:linear-gradient(160deg,#FF5D6C,#E8384B);color:#fff;border:none;border-radius:16px;
+  padding:14px 20px;font-weight:800;font-size:13.5px;display:flex;align-items:center;gap:10px;flex:1;
+  box-shadow:0 14px 28px -10px rgba(232,56,75,0.6);transition:.2s;
+}
+.sos-btn:hover{transform:translateY(-2px);}
+.demo-note{font-size:12px;color:rgba(255,255,255,0.5);margin-top:16px;line-height:1.6;}
+.demo-copy{padding-right:20px;}
+
+/* ===== comparison ===== */
+.compare-wrap{background:var(--card);border-radius:var(--radius);border:1px solid var(--line);overflow:hidden;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;}
+.compare-col{padding:40px 34px;}
+.compare-col.plain{background:var(--bg);}
+.compare-col.smart{background:linear-gradient(160deg,var(--navy-2),var(--navy));color:#fff;}
+.compare-col h3{font-size:20px;margin-bottom:22px;}
+.compare-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+.compare-col li{display:flex;align-items:center;gap:12px;font-size:14.5px;}
+.mark{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;font-weight:800;}
+.mark.no{background:rgba(11,31,58,0.08);color:var(--muted-light);}
+.mark.yes{background:var(--lime);color:var(--navy);}
+
+/* ===== customizer ===== */
+.builder{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;}
+.builder-preview{
+  background:linear-gradient(160deg,#EAF2FF,#F5F8FF);border-radius:var(--radius);border:1px solid var(--line);
+  height:440px;display:flex;align-items:center;justify-content:center;position:relative;
+}
+.builder-panel{display:flex;flex-direction:column;gap:26px;}
+.opt-group label.title{font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:12px;}
+.opt-row{display:flex;gap:10px;flex-wrap:wrap;}
+.opt-btn{
+  border:1.5px solid var(--line);background:var(--white);border-radius:99px;padding:9px 16px;font-size:13.5px;font-weight:600;
+  color:var(--navy);transition:.2s;
+}
+.opt-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.swatch{width:34px;height:34px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line);cursor:pointer;transition:.2s;padding:0;}
+.swatch.active{box-shadow:0 0 0 2.5px var(--electric);}
+.builder-summary{margin-top:6px;padding:18px 20px;background:var(--bg);border-radius:14px;font-size:13.5px;color:var(--muted);}
+.builder-price{display:flex;align-items:center;justify-content:space-between;margin-top:22px;}
+.builder-price .amt{font-family:var(--ff-head);font-size:24px;font-weight:700;}
+
+/* ===== testimonials ===== */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.test-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;}
+.stars{color:#F5A623;font-size:14px;letter-spacing:2px;margin-bottom:16px;}
+.test-card p.quote{font-size:15px;color:var(--ink);line-height:1.7;}
+.test-foot{display:flex;align-items:center;gap:12px;margin-top:22px;}
+.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(160deg,var(--sky),var(--electric));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;}
+.test-foot .name{font-weight:700;font-size:14px;}
+.test-foot .role{font-size:12px;color:var(--muted);}
+.sample-tag{display:block;margin-top:22px;font-size:11px;color:var(--muted-light);font-style:italic;}
+
+/* ===== FAQ ===== */
+.faq-list{max-width:780px;margin:0 auto;border-top:1px solid var(--line);}
+.faq-item{border-bottom:1px solid var(--line);}
+.faq-q{
+  width:100%;text-align:left;background:none;border:none;padding:22px 4px;display:flex;justify-content:space-between;
+  align-items:center;font-family:var(--ff-head);font-size:16.5px;font-weight:600;color:var(--navy);
+}
+.faq-q .plus{width:26px;height:26px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:transform .3s;font-size:15px;}
+.faq-item.open .faq-q .plus{transform:rotate(45deg);background:var(--lime);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.faq-a p{padding:0 4px 22px;color:var(--muted);font-size:14.5px;max-width:640px;}
+
+/* ===== About ===== */
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.about-art{height:380px;border-radius:var(--radius);background:linear-gradient(160deg,var(--navy-2),var(--navy));position:relative;overflow:hidden;}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;}
+.about-stats .s{padding:18px;background:var(--card);border:1px solid var(--line);border-radius:14px;}
+.about-stats .s .n{font-family:var(--ff-head);font-size:22px;font-weight:700;color:var(--electric);}
+.about-stats .s .l{font-size:12px;color:var(--muted);margin-top:4px;}
+
+/* ===== badges ===== */
+.badge-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;}
+.trust-badge{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);padding:10px 16px;border-radius:99px;font-size:13px;font-weight:600;}
+
+/* ===== contact ===== */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:8px;color:var(--navy);}
+.field input,.field select,.field textarea{
+  width:100%;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;font-family:inherit;font-size:14.5px;
+  background:var(--card);color:var(--ink);transition:.2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--electric);}
+.field .err{color:#E8384B;font-size:12px;margin-top:6px;display:none;}
+.field.invalid input,.field.invalid textarea{border-color:#E8384B;}
+.field.invalid .err{display:block;}
+.contact-info{background:var(--navy);color:#fff;border-radius:var(--radius);padding:36px;}
+.contact-info .row{display:flex;gap:14px;margin-bottom:22px;align-items:flex-start;}
+.contact-info .row .ic{width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.social-row{display:flex;gap:10px;margin-top:26px;}
+.social-row a{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;transition:.2s;}
+.social-row a:hover{background:var(--lime);color:var(--navy);}
+.form-status{margin-top:16px;font-size:13.5px;font-weight:600;display:none;padding:12px 16px;border-radius:10px;}
+.form-status.show{display:block;}
+.form-status.ok{background:rgba(198,255,61,0.15);color:#4A6B00;}
+
+/* ===== footer ===== */
+footer{background:var(--navy);color:rgba(255,255,255,0.8);padding:80px 0 30px;}
+.foot-top{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:36px;padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.foot-brand .logo{color:#fff;}
+.foot-brand p{margin-top:16px;font-size:13.5px;color:rgba(255,255,255,0.55);max-width:240px;}
+.foot-col h5{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff;margin-bottom:18px;}
+.foot-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+.foot-col a{font-size:14px;color:rgba(255,255,255,0.6);transition:.2s;}
+.foot-col a:hover{color:var(--lime);}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;font-size:12.5px;color:rgba(255,255,255,0.45);flex-wrap:wrap;gap:12px;}
+.foot-bottom .legal{display:flex;gap:20px;flex-wrap:wrap;}
+
+/* ===== cart drawer ===== */
+.overlay{position:fixed;inset:0;background:rgba(11,31,58,0.5);opacity:0;pointer-events:none;transition:opacity .3s;z-index:300;}
+.overlay.show{opacity:1;pointer-events:auto;}
+.cart-drawer{
+  position:fixed;top:0;right:0;height:100%;width:420px;max-width:92vw;background:var(--white);z-index:301;
+  transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.3,1);display:flex;flex-direction:column;
+}
+.cart-drawer.show{transform:translateX(0);}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;border-bottom:1px solid var(--line);}
+.cart-head h3{font-size:19px;}
+.close-x{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:none;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.cart-items{flex:1;overflow-y:auto;padding:20px 24px;}
+.cart-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);}
+.cart-item .thumb{width:64px;height:64px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.cart-item .info{flex:1;}
+.cart-item .info .nm{font-weight:700;font-size:14px;}
+.cart-item .info .meta{font-size:12px;color:var(--muted);margin-top:2px;}
+.qty-ctrl{display:flex;align-items:center;gap:10px;margin-top:10px;}
+.qty-ctrl button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:none;font-size:14px;}
+.remove-link{font-size:12px;color:#E8384B;font-weight:600;margin-top:8px;background:none;border:none;padding:0;}
+.cart-foot{padding:22px 24px;border-top:1px solid var(--line);}
+.summary-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px;color:var(--muted);}
+.summary-row.total{color:var(--ink);font-weight:700;font-size:17px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+.empty-cart{text-align:center;padding:60px 20px;color:var(--muted);}
+
+/* ===== product modal ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(11,31,58,0.55);z-index:310;opacity:0;pointer-events:none;transition:opacity .3s;
+  display:flex;align-items:center;justify-content:center;padding:24px;}
+.modal-overlay.show{opacity:1;pointer-events:auto;}
+.modal-box{
+  background:#fff;border-radius:24px;max-width:960px;width:100%;max-height:88vh;overflow-y:auto;position:relative;
+  transform:translateY(24px) scale(.98);transition:transform .3s;
+}
+.modal-overlay.show .modal-box{transform:translateY(0) scale(1);}
+.modal-close{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;background:var(--bg);border:none;font-size:17px;z-index:2;}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;}
+.modal-gallery{background:var(--bg);display:flex;align-items:center;justify-content:center;min-height:420px;position:relative;padding:30px;}
+.modal-body{padding:40px;}
+.modal-body .age-tag{font-size:11.5px;font-weight:700;color:var(--electric);text-transform:uppercase;letter-spacing:.06em;}
+.modal-body h2{font-size:26px;margin-top:8px;}
+.modal-body .price{font-size:24px;margin-top:12px;}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0;}
+.spec-item{background:var(--bg);border-radius:12px;padding:12px 14px;}
+.spec-item .l{font-size:11px;color:var(--muted);}
+.spec-item .v{font-size:13.5px;font-weight:700;margin-top:2px;}
+.whats-inside{margin-top:24px;padding:20px;background:var(--bg);border-radius:16px;}
+.whats-inside h4{font-size:14px;margin-bottom:12px;}
+.inside-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.inside-tags span{font-size:12px;background:var(--white);border:1px solid var(--line);padding:6px 12px;border-radius:99px;font-weight:600;}
+.modal-actions{display:flex;gap:10px;margin-top:26px;}
+
+/* toast */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;
+  padding:14px 24px;border-radius:99px;font-size:14px;font-weight:600;z-index:400;opacity:0;pointer-events:none;transition:.3s;
+  display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* whatsapp fab */
+.wa-fab{
+  position:fixed;bottom:26px;right:26px;width:58px;height:58px;border-radius:50%;background:#25D366;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px -8px rgba(37,211,102,0.6);
+  z-index:150;font-size:26px;transition:.2s;
+}
+.wa-fab:hover{transform:scale(1.08);}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.3,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* skip link */
+.skip-link{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:12px 20px;z-index:999;border-radius:0 0 10px 0;}
+.skip-link:focus{left:0;}
+
+/* mobile menu */
+.mobile-menu{
+  position:fixed;top:78px;left:0;right:0;bottom:0;background:var(--white);z-index:199;transform:translateX(100%);
+  transition:transform .3s;padding:24px;overflow-y:auto;
+}
+.mobile-menu.show{transform:translateX(0);}
+.mobile-menu a{display:block;padding:16px 4px;font-size:18px;font-weight:600;border-bottom:1px solid var(--line);}
+
+/* ===== responsive ===== */
+@media (max-width:980px){
+  nav.primary,.trust-tags{display:none;}
+  .hamburger{display:flex;}
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-visual{height:340px;order:-1;}
+  .cat-grid,.feat-grid,.product-grid,.test-grid{grid-template-columns:repeat(2,1fr);}
+  .steps,.builder,.about-wrap,.contact-wrap{grid-template-columns:1fr;}
+  .compare-grid{grid-template-columns:1fr;}
+  .foot-top{grid-template-columns:1fr 1fr;}
+  .modal-grid{grid-template-columns:1fr;}
+  .modal-gallery{min-height:280px;}
+}
+@media (max-width:640px){
+  .section{padding:64px 0;}
+  .cat-grid,.feat-grid,.product-grid,.test-grid{grid-template-columns:1fr;}
+  .foot-top{grid-template-columns:1fr;gap:34px;}
+  .hero{padding:56px 0 90px;}
+  .hero-cta .btn{width:100%;}
+  .demo-copy{padding-right:0;}
+  .demo-stats{grid-template-columns:1fr 1fr;}
+  .cart-drawer{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="wrap nav-inner">
+    <a href="#home" class="logo" aria-label="TrackieBag home">
+      <span class="mark"></span> TrackieBag
+    </a>
+    <nav class="primary" aria-label="Primary navigation">
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#features">GPS Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="wishlistBtn" aria-label="Wishlist">♡<span class="badge" id="wishCount" style="display:none">0</span></button>
+      <button class="icon-btn" id="cartBtn" aria-label="Open cart">🛒<span class="badge" id="cartCount" style="display:none">0</span></button>
+      <button class="btn btn-ghost btn-sm" id="loginBtn">Login</button>
+      <a href="#shop" class="btn btn-dark btn-sm" style="display:none" id="shopNowDesktop">Shop Now</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home">Home</a>
+  <a href="#shop">Shop</a>
+  <a href="#features">GPS Features</a>
+  <a href="#how-it-works">How It Works</a>
+  <a href="#about">About</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact">Contact</a>
+  <a href="#shop" class="btn btn-dark" style="margin-top:20px;width:100%;">Shop Now</a>
+</div>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow" style="background:rgba(198,255,61,0.14);color:var(--lime);">TrackieBag · Smart Bags for Safer Adventures</span>
+      <h1 style="margin-top:20px;">The smart bag that keeps you <span class="accent">connected.</span></h1>
+      <p class="lead">Stylish, comfortable and GPS-enabled bags designed for children and teenagers aged 4–15 — built to give parents a little extra peace of mind.</p>
+      <div class="hero-cta">
+        <a href="#shop" class="btn btn-primary">Shop Smart Bags</a>
+        <a href="#features" class="btn btn-outline">Explore GPS Features</a>
+      </div>
+      <div class="trust-tags">
+        <span>GPS Tracking</span><span>SOS Alert</span><span>Parent App</span>
+        <span>Safe-Zone Alerts</span><span>Water Resistant</span><span>Kid Friendly</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="bag-stage">
+        <div class="bag-illustration" style="--bag-color:#2F6FED;width:240px;height:280px;transform:scale(1.5);">
+          <div class="strap l" style="background:rgba(0,0,0,0.22);"></div>
+          <div class="strap r" style="background:rgba(0,0,0,0.22);"></div>
+          <div class="body"></div>
+          <div class="pocket"></div>
+          <div class="zip"></div>
+          <div class="gps-dot"></div>
+        </div>
+      </div>
+      <div class="phone-card">
+        <div class="map">
+          <div class="p signal">
+            <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+            <div class="pin"></div>
+          </div>
+        </div>
+        <div class="row"><span>Location</span><b>School Zone</b></div>
+        <div class="row"><span>Battery</span><b>74%</b></div>
+        <div class="row"><span>Updated</span><b>2 min ago</b></div>
+      </div>
+      <div class="stat-chip"><div class="n">100%</div><div><div class="l">Safe-zone entry</div><div class="l">detected today</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATEGORIES ================= -->
+<section class="section" id="categories">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Shop by age</span>
+      <h2>A bag that grows with them.</h2>
+      <p>Three collections, each tuned for a different stage — from first school days to teenage independence.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal">
+        <div class="cat-art explorers">
+          <div class="bag-illustration" style="--bag-color:#FF9F43;">
+            <div class="strap l"></div><div class="strap r"></div><div class="body"></div><div class="pocket"></div><div class="zip"></div><div class="gps-dot"></div>
+          </div>
+        </div>
+        <div class="cat-body">
+          <div class="age">Ages 4–7</div>
+          <h3>Little Explorers</h3>
+          <p>Bright, playful and lightweight designs sized for small shoulders and first-day adventures.</p>
+          <button class="btn btn-ghost shop-filter-btn" data-age="4-7">Explore Collection</button>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-art adventurers">
+          <div class="bag-illustration" style="--bag-color:#2F6FED;">
+            <div class="strap l"></div><div class="strap r"></div><div class="body"></div><div class="pocket"></div><div class="zip"></div><div class="gps-dot"></div>
+          </div>
+        </div>
+        <div class="cat-body">
+          <div class="age">Ages 8–11</div>
+          <h3>Young Adventurers</h3>
+          <p>Fun, durable and technology-focused designs built for busy school weeks and weekend trips.</p>
+          <button class="btn btn-ghost shop-filter-btn" data-age="8-11">Explore Collection</button>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-art teen">
+          <div class="bag-illustration" style="--bag-color:#3E3159;">
+            <div class="strap l"></div><div class="strap r"></div><div class="body"></div><div class="pocket"></div><div class="zip"></div><div class="gps-dot"></div>
+          </div>
+        </div>
+        <div class="cat-body">
+          <div class="age">Ages 12–15</div>
+          <h3>Teen Collection</h3>
+          <p>Modern, minimal and stylish designs that don't look "kiddy" — built for teens who want independence.</p>
+          <button class="btn btn-ghost shop-filter-btn" data-age="12-15">Explore Collection</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section class="section" id="how-it-works" style="background:var(--white);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">How GPS tracking works</span>
+      <h2>Three steps to staying connected.</h2>
+    </div>
+    <div class="steps">
+      <div class="step-list reveal">
+        <div class="step">
+          <div class="num">01</div>
+          <div><h4>Your child carries the bag</h4><p>The GPS-enabled bag connects to the tracking system whenever it's within network and satellite range.</p></div>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <div><h4>Parent opens the app</h4><p>Parents can check the bag's approximate location, battery level and last-updated time through the connected app.</p></div>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <div><h4>Stay connected</h4><p>Receive relevant alerts, such as safe-zone entry or exit, low battery and SOS notifications, in real time.</p></div>
+        </div>
+      </div>
+      <div class="map-visual reveal">
+        <div class="map-route"></div>
+        <div class="map-marker-2"></div>
+        <div class="map-pin-wrap signal">
+          <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+          <div class="pin"></div>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:34px;font-size:13px;color:var(--muted);max-width:640px;">GPS accuracy and connectivity depend on network and satellite availability, and may vary indoors, underground or in areas with weak signal.</p>
+  </div>
+</section>
+
+<!-- ================= SAFETY FEATURES ================= -->
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow">Safety features</span>
+      <h2>More than a bag. A little extra peace of mind.</h2>
+      <p>Every TrackieBag pairs everyday comfort with a focused set of safety features — nothing gimmicky, nothing overstated.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal"><div class="feat-icon">📍</div><h4>Live Location</h4><p>Check your child's approximate location from the parent app, whenever the bag has network and GPS signal.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon">🚨</div><h4>SOS Emergency Alert</h4><p>A dedicated SOS button sends an immediate alert with the bag's last known location to registered parent contacts.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon">🏠</div><h4>Safe-Zone Alerts</h4><p>Set up zones like home or school and get notified when the bag enters or leaves them.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon">🔋</div><h4>Battery Alerts</h4><p>Get a low-battery notification well before the GPS module runs out of charge.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon">🗺️</div><h4>Location History</h4><p>Review a simple timeline of recent locations recorded over the past few days.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon">🎒</div><h4>Comfortable Design</h4><p>Ergonomic straps, breathable back panels and a waterproof GPS compartment built for daily wear.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRODUCT SHOWCASE / SHOP ================= -->
+<section class="section" id="shop" style="background:var(--white);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Shop TrackieBag</span>
+      <h2>Find the right bag for your explorer.</h2>
+    </div>
+
+    <div class="shop-toolbar reveal">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search bags…" aria-label="Search products">
+      </div>
+      <div class="filter-group">
+        <select class="pill-select" id="colorFilter" aria-label="Filter by color">
+          <option value="">All Colors</option>
+          <option value="Blue">Blue</option>
+          <option value="Orange">Orange</option>
+          <option value="Purple">Purple</option>
+          <option value="Green">Green</option>
+          <option value="Pink">Pink</option>
+        </select>
+        <select class="pill-select" id="sortFilter" aria-label="Sort products">
+          <option value="popular">Sort: Popularity</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="chip-row" id="ageChips">
+      <button class="chip active" data-age="all">All Ages</button>
+      <button class="chip" data-age="4-7">4–7 Years</button>
+      <button class="chip" data-age="8-11">8–11 Years</button>
+      <button class="chip" data-age="12-15">12–15 Years</button>
+      <button class="chip" data-feature="gps">GPS Featured</button>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+    <p style="text-align:center;margin-top:20px;color:var(--muted);font-size:13.5px;display:none;" id="noResults">No bags match those filters — try clearing a filter.</p>
+  </div>
+</section>
+
+<!-- ================= GPS DEMO ================= -->
+<section class="section" id="demo">
+  <div class="wrap" style="display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:center;">
+    <div class="demo-copy reveal">
+      <span class="eyebrow">Live demo</span>
+      <h2 style="margin-top:14px;font-size:clamp(28px,3.6vw,38px);">See how smart tracking works.</h2>
+      <p style="margin-top:16px;color:var(--muted);font-size:16px;">This is a simulated dashboard using sample data — it shows the kind of information the real parent app displays, without connecting to an actual device.</p>
+      <button class="btn btn-primary" style="margin-top:26px;" id="tryDemoBtn">Try the Demo</button>
+      <p style="margin-top:16px;font-size:12.5px;color:var(--muted-light);">Demo / Simulation — not live GPS data.</p>
+    </div>
+    <div class="demo-panel reveal">
+      <div class="demo-inner">
+        <div class="demo-top">
+          <div class="demo-label"><span class="live-dot"></span> Demo Dashboard</div>
+          <span style="font-size:11px;color:rgba(255,255,255,0.5);">Simulated data</span>
+        </div>
+        <div class="demo-map">
+          <div class="safe-zone"></div>
+          <div class="pin-wrap signal">
+            <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+            <div class="pin"></div>
+          </div>
+        </div>
+        <div class="demo-stats">
+          <div class="d-stat"><div class="l">Last Updated</div><div class="v" id="demoTime">2 min ago</div></div>
+          <div class="d-stat"><div class="l">Safe Zone</div><div class="v" style="color:var(--lime);">Inside ✓</div></div>
+          <div class="d-stat"><div class="l">Battery</div><div class="v" id="demoBatt">74%</div><div class="batt-bar"><div class="batt-fill"></div></div></div>
+        </div>
+        <div class="sos-row">
+          <button class="sos-btn" id="sosBtn">🚨 Simulate SOS Alert</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARISON ================= -->
+<section class="section" style="background:var(--white);">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow">Why parents choose TrackieBag</span>
+      <h2>Traditional bag vs. TrackieBag.</h2>
+    </div>
+    <div class="compare-wrap reveal">
+      <div class="compare-grid">
+        <div class="compare-col plain">
+          <h3>Traditional Bag</h3>
+          <ul>
+            <li><span class="mark no">✕</span> Basic storage only</li>
+            <li><span class="mark no">✕</span> No location tracking</li>
+            <li><span class="mark no">✕</span> No emergency alert</li>
+            <li><span class="mark no">✕</span> No parent connectivity</li>
+          </ul>
+        </div>
+        <div class="compare-col smart">
+          <h3>TrackieBag</h3>
+          <ul>
+            <li><span class="mark yes">✓</span> GPS tracking</li>
+            <li><span class="mark yes">✓</span> SOS alerts</li>
+            <li><span class="mark yes">✓</span> Safe-zone notifications</li>
+            <li><span class="mark yes">✓</span> Parent connectivity</li>
+            <li><span class="mark yes">✓</span> Stylish design</li>
+            <li><span class="mark yes">✓</span> Child-friendly comfort</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DESIGN YOUR BAG ================= -->
+<section class="section" id="builder">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Design your bag</span>
+      <h2>Build your perfect TrackieBag.</h2>
+      <p>Pick an age group, colour, pattern and size to preview your bag before you shop.</p>
+    </div>
+    <div class="builder">
+      <div class="builder-preview reveal">
+        <div class="bag-illustration" id="builderBag" style="--bag-color:#2F6FED;width:220px;height:260px;transform:scale(1.4);">
+          <div class="strap l"></div><div class="strap r"></div>
+          <div class="body"></div><div class="pocket"></div><div class="zip"></div>
+          <div class="gps-dot"></div>
+        </div>
+      </div>
+      <div class="builder-panel reveal">
+        <div class="opt-group">
+          <label class="title">Age Group</label>
+          <div class="opt-row" id="bAge">
+            <button class="opt-btn active" data-v="4-7">4–7 yrs</button>
+            <button class="opt-btn" data-v="8-11">8–11 yrs</button>
+            <button class="opt-btn" data-v="12-15">12–15 yrs</button>
+          </div>
+        </div>
+        <div class="opt-group">
+          <label class="title">Bag Color</label>
+          <div class="opt-row" id="bColor">
+            <button class="swatch active" style="background:#2F6FED;" data-v="#2F6FED" data-name="Electric Blue"></button>
+            <button class="swatch" style="background:#FF9F43;" data-v="#FF9F43" data-name="Sunny Orange"></button>
+            <button class="swatch" style="background:#8B7CF6;" data-v="#8B7CF6" data-name="Soft Purple"></button>
+            <button class="swatch" style="background:#3EC48B;" data-v="#3EC48B" data-name="Fresh Green"></button>
+            <button class="swatch" style="background:#E8577E;" data-v="#E8577E" data-name="Bright Pink"></button>
+            <button class="swatch" style="background:#0B1F3A;" data-v="#0B1F3A" data-name="Deep Navy"></button>
+          </div>
+        </div>
+        <div class="opt-group">
+          <label class="title">Pattern / Theme</label>
+          <div class="opt-row" id="bPattern">
+            <button class="opt-btn active" data-v="Solid">Solid</button>
+            <button class="opt-btn" data-v="Space">Space</button>
+            <button class="opt-btn" data-v="Dino">Dino</button>
+            <button class="opt-btn" data-v="Camo">Camo</button>
+            <button class="opt-btn" data-v="Floral">Floral</button>
+          </div>
+        </div>
+        <div class="opt-group">
+          <label class="title">Size</label>
+          <div class="opt-row" id="bSize">
+            <button class="opt-btn active" data-v="Small">Small</button>
+            <button class="opt-btn" data-v="Medium">Medium</button>
+            <button class="opt-btn" data-v="Large">Large</button>
+          </div>
+        </div>
+        <div class="opt-group">
+          <label class="title">Accessories</label>
+          <div class="opt-row" id="bAcc">
+            <button class="opt-btn" data-v="Rain Cover">+ Rain Cover</button>
+            <button class="opt-btn" data-v="Charm">+ Reflective Charm</button>
+            <button class="opt-btn" data-v="Pouch">+ Pencil Pouch</button>
+          </div>
+        </div>
+        <div class="builder-summary" id="builderSummary">4–7 yrs · Electric Blue · Solid · Small</div>
+        <div class="builder-price">
+          <div><div style="font-size:12px;color:var(--muted);">Estimated price</div><div class="amt" id="builderPrice">₹2,499</div></div>
+          <button class="btn btn-primary" id="builderAddBtn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section" style="background:var(--white);">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow">Customer reviews</span>
+      <h2>What parents are saying.</h2>
+      <p>Sample reviews shown for illustration — replace with real customer testimonials before launch.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Knowing that I can check the bag's location gives me extra peace of mind when my daughter travels to school."</p>
+        <div class="test-foot"><div class="avatar">P</div><div><div class="name">Priya M.</div><div class="role">Parent, Kochi</div></div></div>
+      </div>
+      <div class="test-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"My son loves the design and I love the safe-zone alerts — it feels like a proper upgrade from his old bag."</p>
+        <div class="test-foot"><div class="avatar">A</div><div><div class="name">Arun K.</div><div class="role">Parent, Bengaluru</div></div></div>
+      </div>
+      <div class="test-card reveal">
+        <div class="stars">★★★★☆</div>
+        <p class="quote">"Comfortable for daily use and the battery easily lasts through the school week. The app is simple to set up."</p>
+        <div class="test-foot"><div class="avatar">S</div><div><div class="name">Sarah T.</div><div class="role">Parent, Chennai</div></div></div>
+      </div>
+    </div>
+    <span class="sample-tag" style="display:block;text-align:center;">Sample content shown for demonstration purposes.</span>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions.</h2>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section" id="about" style="background:var(--white);">
+  <div class="wrap about-wrap">
+    <div class="about-art reveal">
+      <div class="map-pin-wrap signal" style="left:50%;top:45%;">
+        <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+        <div class="pin"></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">About TrackieBag</span>
+      <h2 style="margin-top:14px;font-size:clamp(28px,3.6vw,36px);">Building safer journeys for the next generation.</h2>
+      <p style="margin-top:18px;color:var(--muted);font-size:16px;">TrackieBag combines everyday school-bag functionality with connected technology, so families can stay a little more informed — without the bag feeling like a gadget. We design for comfort first, then layer in safety features that quietly work in the background.</p>
+      <p style="margin-top:14px;color:var(--muted);font-size:16px;">We're a small team of designers, engineers and parents building products we'd want our own kids to carry.</p>
+      <div class="about-stats">
+        <div class="s"><div class="n">4–15</div><div class="l">Age range covered</div></div>
+        <div class="s"><div class="n">3</div><div class="l">Collections</div></div>
+        <div class="s"><div class="n">6+</div><div class="l">Safety features</div></div>
+      </div>
+      <div class="badge-row">
+        <span class="trust-badge">🧒 Child-Friendly Design</span>
+        <span class="trust-badge">🔒 Secure Data</span>
+        <span class="trust-badge">✅ Quality Tested</span>
+        <span class="trust-badge">📶 Parent Connected</span>
+        <span class="trust-badge">🛡️ Warranty Available</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Contact us</span>
+      <h2>We'd love to hear from you.</h2>
+    </div>
+    <div class="contact-wrap">
+      <form class="reveal" id="contactForm" novalidate>
+        <div class="field" id="f-name">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" required>
+          <div class="err">Please enter your name.</div>
+        </div>
+        <div class="field" id="f-email">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" required>
+          <div class="err">Please enter a valid email address.</div>
+        </div>
+        <div class="field" id="f-phone">
+          <label for="cf-phone">Phone</label>
+          <input type="tel" id="cf-phone" name="phone">
+        </div>
+        <div class="field" id="f-product">
+          <label for="cf-product">Product Enquiry</label>
+          <select id="cf-product" name="product">
+            <option value="">General enquiry</option>
+            <option>TrackieBag Mini</option>
+            <option>TrackieBag Explorer</option>
+            <option>TrackieBag Pro</option>
+            <option>TrackieBag Teen</option>
+            <option>TrackieBag Adventure</option>
+            <option>TrackieBag Urban</option>
+          </select>
+        </div>
+        <div class="field" id="f-message">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="5" required></textarea>
+          <div class="err">Please enter a message.</div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
+      <div class="contact-info reveal">
+        <div class="row"><div class="ic">📍</div><div><b style="display:block;margin-bottom:4px;">Studio Address</b><span style="font-size:13.5px;color:rgba(255,255,255,0.65);">TrackieBag Design Studio, Infopark Road, Kochi, Kerala 682042, India</span></div></div>
+        <div class="row"><div class="ic">✉️</div><div><b style="display:block;margin-bottom:4px;">Email</b><span style="font-size:13.5px;color:rgba(255,255,255,0.65);">hello@TrackieBag.example</span></div></div>
+        <div class="row"><div class="ic">📞</div><div><b style="display:block;margin-bottom:4px;">Phone</b><span style="font-size:13.5px;color:rgba(255,255,255,0.65);">+91 90000 00000</span></div></div>
+        <div class="social-row">
+          <a href="#" aria-label="Google" title="Configure real profile URL">G</a>
+          <a href="#" aria-label="Instagram" title="Configure real profile URL">IG</a>
+          <a href="#" aria-label="Facebook" title="Configure real profile URL">FB</a>
+          <a href="#" aria-label="YouTube" title="Configure real profile URL">YT</a>
+          <a href="#" aria-label="WhatsApp" title="Configure real profile URL">WA</a>
+        </div>
+        <p style="font-size:11.5px;color:rgba(255,255,255,0.4);margin-top:20px;">Sample contact details shown for demonstration — replace with real business information before launch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="logo"><span class="mark"></span> TrackieBag</div>
+        <p>Carry Smart. Stay Connected. Stay Safe.</p>
+        <p style="margin-top:14px;">GPS accuracy and connectivity depend on network and satellite availability.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="#shop">4–7 Years</a></li>
+          <li><a href="#shop">8–11 Years</a></li>
+          <li><a href="#shop">12–15 Years</a></li>
+          <li><a href="#shop">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Technology</h5>
+        <ul>
+          <li><a href="#features">GPS Tracking</a></li>
+          <li><a href="#features">SOS Alert</a></li>
+          <li><a href="#features">Safe Zones</a></li>
+          <li><a href="#demo">Parent App</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#" data-legal="privacy">Privacy Policy</a></li>
+          <li><a href="#" data-legal="terms">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Google</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 TrackieBag. All rights reserved. Demo content for concept preview.</span>
+      <span class="legal">
+        <a href="#" data-legal="privacy">Privacy Policy</a>
+        <a href="#" data-legal="terms">Terms & Conditions</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-fab" href="https://wa.me/910000000000" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">💬</a>
+
+<!-- ================= CART DRAWER ================= -->
+<div class="overlay" id="overlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="cart-head">
+    <h3>Your Cart</h3>
+    <button class="close-x" id="closeCart" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot" id="cartFoot">
+    <div class="summary-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+    <div class="summary-row"><span>Estimated delivery</span><span id="cartDelivery">₹0</span></div>
+    <div class="summary-row total"><span>Total</span><span id="cartTotal">₹0</span></div>
+    <button class="btn btn-primary" style="width:100%;margin-top:16px;" id="checkoutBtn">Proceed to Checkout</button>
+    <p style="font-size:11.5px;color:var(--muted-light);margin-top:10px;text-align:center;">Checkout UI only — connect a real payment gateway before launch.</p>
+  </div>
+</aside>
+
+<!-- ================= PRODUCT MODAL ================= -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= DATA ================= */
+const PRODUCTS = [
+  {id:'mini', name:'TrackieBag Mini', age:'4-7', ageLabel:'4–7 Years', price:2499, oldPrice:2999, rating:4.8, reviews:132, colors:['#FF9F43','#8B7CF6','#3EC48B'], colorNames:['Orange','Purple','Green'], popularity:92,
+    desc:'A lightweight first bag for little explorers, with a soft ergonomic fit and a hidden waterproof GPS pocket.',
+    specs:{Dimensions:'28 × 22 × 10 cm', Weight:'420 g', Material:'Ripstop nylon', Battery:'Up to 5 days', Warranty:'12 months', Delivery:'3–5 business days'}},
+  {id:'explorer', name:'TrackieBag Explorer', age:'4-7', ageLabel:'4–7 Years', price:2799, oldPrice:null, rating:4.7, reviews:98, colors:['#2F6FED','#FF9F43'], colorNames:['Blue','Orange'], popularity:80,
+    desc:'Playful graphics, reinforced base and a padded chest strap for extra stability on the school run.',
+    specs:{Dimensions:'30 × 23 × 11 cm', Weight:'460 g', Material:'Ripstop nylon', Battery:'Up to 5 days', Warranty:'12 months', Delivery:'3–5 business days'}},
+  {id:'young-pro', name:'TrackieBag Pro', age:'8-11', ageLabel:'8–11 Years', price:3299, oldPrice:3799, rating:4.9, reviews:210, colors:['#2F6FED','#3EC48B','#0B1F3A'], colorNames:['Blue','Green','Navy'], popularity:97,
+    desc:'Our most popular mid-size bag — durable shell, laptop-ready sleeve and a fully sealed GPS compartment.',
+    specs:{Dimensions:'34 × 26 × 13 cm', Weight:'540 g', Material:'600D polyester', Battery:'Up to 6 days', Warranty:'18 months', Delivery:'3–5 business days'}},
+  {id:'adventure', name:'TrackieBag Adventure', age:'8-11', ageLabel:'8–11 Years', price:3199, oldPrice:null, rating:4.6, reviews:74, colors:['#FF9F43','#E8577E'], colorNames:['Orange','Pink'], popularity:70,
+    desc:'Built for weekend trips and activity days, with extra mesh pockets and reflective safety strips.',
+    specs:{Dimensions:'35 × 27 × 14 cm', Weight:'560 g', Material:'600D polyester', Battery:'Up to 6 days', Warranty:'18 months', Delivery:'3–5 business days'}},
+  {id:'teen', name:'TrackieBag Teen', age:'12-15', ageLabel:'12–15 Years', price:3799, oldPrice:4299, rating:4.8, reviews:156, colors:['#0B1F3A','#8B7CF6'], colorNames:['Navy','Purple'], popularity:88,
+    desc:'A modern, minimal silhouette that doesn\'t look "kiddy" — with a discreet GPS module and USB pass-through.',
+    specs:{Dimensions:'38 × 28 × 15 cm', Weight:'620 g', Material:'Water-resistant canvas', Battery:'Up to 7 days', Warranty:'18 months', Delivery:'3–5 business days'}},
+  {id:'urban', name:'TrackieBag Urban', age:'12-15', ageLabel:'12–15 Years', price:3999, oldPrice:null, rating:4.7, reviews:61, colors:['#0B1F3A','#2F6FED'], colorNames:['Navy','Blue'], popularity:75,
+    desc:'Sleek and city-ready, with a padded 15" laptop sleeve and anti-theft-style zip pulls.',
+    specs:{Dimensions:'40 × 29 × 15 cm', Weight:'640 g', Material:'Water-resistant canvas', Battery:'Up to 7 days', Warranty:'18 months', Delivery:'3–5 business days'}},
+];
+
+const FAQS = [
+  ['How does the GPS tracking work?', 'A GPS + network module inside the bag periodically shares its approximate location with the parent app whenever it has signal and battery.'],
+  ['Does the bag require a mobile network?', 'Yes — the GPS module needs a cellular network connection to send location updates, similar to a mobile phone.'],
+  ['How accurate is the location?', 'Accuracy typically ranges from a few metres to around 20–50 metres depending on GPS/network conditions, and can be reduced indoors or underground.'],
+  ['How long does the battery last?', 'Depending on the model, the GPS module lasts approximately 5–7 days on a full charge under normal use.'],
+  ['Is the bag waterproof?', 'The main bag material is water-resistant and the GPS compartment is sealed to resist splashes, but the bag is not designed for full submersion.'],
+  ['What age groups are available?', 'We offer three collections: Little Explorers (4–7), Young Adventurers (8–11) and Teen Collection (12–15).'],
+  ['Does the parent need an app?', 'Yes, a companion parent app is required to view location, alerts and battery status.'],
+  ['Can multiple parents access the same bag?', 'Yes, the app supports multiple linked guardian accounts per device, subject to the primary account owner\'s approval.'],
+  ['What happens when the SOS button is pressed?', 'Pressing and holding the SOS button sends an immediate alert with the bag\'s last known location to all linked parent contacts.'],
+  ['Is the GPS tracker removable?', 'The GPS module is built into a sealed compartment and is not designed to be removed or transferred between bags.'],
+];
+
+/* ================= STATE ================= */
+let cart = JSON.parse(sessionStorage.getItem('tb_cart') || 'null') || [];
+let wishlist = JSON.parse(sessionStorage.getItem('tb_wish') || 'null') || [];
+let activeAgeFilter = 'all';
+let activeFeatureFilter = false;
+
+function saveState(){
+  try{
+    sessionStorage.setItem('tb_cart', JSON.stringify(cart));
+    sessionStorage.setItem('tb_wish', JSON.stringify(wishlist));
+  }catch(e){}
+}
+
+function fmt(n){ return '₹' + n.toLocaleString('en-IN'); }
+
+/* ================= RENDER PRODUCTS ================= */
+function bagIllustration(color){
+  return `<div class="bag-illustration" style="--bag-color:${color};">
+    <div class="strap l"></div><div class="strap r"></div>
+    <div class="body"></div><div class="pocket"></div><div class="zip"></div>
+    <div class="gps-dot"></div>
+  </div>`;
+}
+
+function renderStars(rating){
+  const full = Math.round(rating);
+  return '★'.repeat(full) + '☆'.repeat(5-full);
+}
+
+function getFilteredProducts(){
+  const search = document.getElementById('searchInput').value.trim().toLowerCase();
+  const color = document.getElementById('colorFilter').value;
+  const sort = document.getElementById('sortFilter').value;
+
+  let list = PRODUCTS.filter(p=>{
+    if(activeAgeFilter !== 'all' && p.age !== activeAgeFilter) return false;
+    if(activeFeatureFilter && p.popularity < 85) return false;
+    if(search && !p.name.toLowerCase().includes(search)) return false;
+    if(color && !p.colorNames.includes(color)) return false;
+    return true;
+  });
+
+  if(sort === 'low') list.sort((a,b)=>a.price-b.price);
+  else if(sort === 'high') list.sort((a,b)=>b.price-a.price);
+  else list.sort((a,b)=>b.popularity-a.popularity);
+
+  return list;
+}
+
+function renderProductGrid(){
+  const grid = document.getElementById('productGrid');
+  const list = getFilteredProducts();
+  document.getElementById('noResults').style.display = list.length ? 'none' : 'block';
+  grid.innerHTML = list.map(p=>{
+    const inWish = wishlist.includes(p.id);
+    const bg = `linear-gradient(160deg, ${p.colors[0]}22, ${p.colors[0]}44)`;
+    return `
+    <div class="product-card reveal in" data-id="${p.id}">
+      <div class="product-media" style="background:${bg};">
+        <span class="gps-badge">GPS Enabled</span>
+        <button class="wish-btn ${inWish?'active':''}" data-wish="${p.id}" aria-label="Toggle wishlist">${inWish?'♥':'♡'}</button>
+        ${bagIllustration(p.colors[0])}
+      </div>
+      <div class="product-info">
+        <div class="age-tag">${p.ageLabel}</div>
+        <h3>${p.name}</h3>
+        <div class="rating">${renderStars(p.rating)} <span style="color:var(--muted-light)">(${p.reviews})</span></div>
+        <div class="colors">${p.colors.map(c=>`<span class="dot-color" style="background:${c};"></span>`).join('')}</div>
+        <div class="price-row">
+          <div class="price">${p.oldPrice?`<span class="old">${fmt(p.oldPrice)}</span>`:''}${fmt(p.price)}</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-ghost" data-view="${p.id}">View Details</button>
+          <button class="btn btn-dark" data-add="${p.id}">Add to Cart</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ================= FAQ ================= */
+function renderFAQ(){
+  const list = document.getElementById('faqList');
+  list.innerHTML = FAQS.map((f,i)=>`
+    <div class="faq-item" data-i="${i}">
+      <button class="faq-q" aria-expanded="false">
+        <span>${f[0]}</span><span class="plus">+</span>
+      </button>
+      <div class="faq-a"><p>${f[1]}</p></div>
+    </div>`).join('');
+
+  list.querySelectorAll('.faq-q').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const item = btn.closest('.faq-item');
+      const answer = item.querySelector('.faq-a');
+      const isOpen = item.classList.contains('open');
+      list.querySelectorAll('.faq-item.open').forEach(o=>{
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+        o.querySelector('.faq-q').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+}
+
+/* ================= CART ================= */
+function addToCart(id, meta){
+  const product = PRODUCTS.find(p=>p.id===id) || meta;
+  const existing = cart.find(c=>c.id===id && c.color===(meta?meta.color:'default'));
+  if(existing){ existing.qty += 1; }
+  else {
+    cart.push({
+      id: product.id, name: product.name, price: meta&&meta.price?meta.price:product.price,
+      color: meta&&meta.color?meta.color:(product.colors?product.colors[0]:'#2F6FED'),
+      meta: meta&&meta.metaLabel?meta.metaLabel:product.ageLabel,
+      qty:1
+    });
+  }
+  saveState();
+  renderCart();
+  showToast(`${product.name} added to cart`);
+}
+
+function renderCart(){
+  const wrap = document.getElementById('cartItems');
+  const count = cart.reduce((a,c)=>a+c.qty,0);
+  const countEl = document.getElementById('cartCount');
+  countEl.textContent = count;
+  countEl.style.display = count ? 'flex' : 'none';
+
+  if(!cart.length){
+    wrap.innerHTML = `<div class="empty-cart">Your cart is empty.<br><br><button class="btn btn-dark" onclick="document.getElementById('closeCart').click()">Continue Shopping</button></div>`;
+  } else {
+    wrap.innerHTML = cart.map((c,i)=>`
+      <div class="cart-item">
+        <div class="thumb" style="background:${c.color}22;">${bagIllustration(c.color)}</div>
+        <div class="info">
+          <div class="nm">${c.name}</div>
+          <div class="meta">${c.meta} · ${fmt(c.price)}</div>
+          <div class="qty-ctrl">
+            <button data-dec="${i}" aria-label="Decrease quantity">−</button>
+            <span>${c.qty}</span>
+            <button data-inc="${i}" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="remove-link" data-remove="${i}">Remove</button>
+        </div>
+      </div>`).join('');
+  }
+
+  const subtotal = cart.reduce((a,c)=>a+c.price*c.qty,0);
+  const delivery = subtotal>0 && subtotal<3000 ? 149 : 0;
+  document.getElementById('cartSubtotal').textContent = fmt(subtotal);
+  document.getElementById('cartDelivery').textContent = delivery? fmt(delivery) : 'Free';
+  document.getElementById('cartTotal').textContent = fmt(subtotal+delivery);
+  document.getElementById('checkoutBtn').disabled = cart.length===0;
+}
+
+function toggleWishlist(id){
+  const idx = wishlist.indexOf(id);
+  if(idx>-1) wishlist.splice(idx,1); else wishlist.push(id);
+  saveState();
+  const wc = document.getElementById('wishCount');
+  wc.textContent = wishlist.length;
+  wc.style.display = wishlist.length ? 'flex' : 'none';
+  renderProductGrid();
+}
+
+/* ================= MODAL ================= */
+function openProductModal(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  if(!p) return;
+  const box = document.getElementById('modalBox');
+  box.innerHTML = `
+    <button class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
+    <div class="modal-grid">
+      <div class="modal-gallery" style="background:linear-gradient(160deg, ${p.colors[0]}18, ${p.colors[0]}38);">
+        <div style="transform:scale(1.6);">${bagIllustration(p.colors[0])}</div>
+      </div>
+      <div class="modal-body">
+        <div class="age-tag">${p.ageLabel} · GPS Enabled</div>
+        <h2>${p.name}</h2>
+        <div class="rating">${renderStars(p.rating)} <span style="color:var(--muted-light)">(${p.reviews} reviews)</span></div>
+        <div class="price">${p.oldPrice?`<span class="old">${fmt(p.oldPrice)}</span>`:''}${fmt(p.price)}</div>
+        <p style="margin-top:14px;color:var(--muted);font-size:14.5px;">${p.desc}</p>
+        <div style="display:flex;gap:8px;margin-top:16px;">
+          ${p.colors.map((c,i)=>`<span class="dot-color" title="${p.colorNames[i]}" style="background:${c};width:22px;height:22px;"></span>`).join('')}
+        </div>
+        <div class="spec-grid">
+          ${Object.entries(p.specs).map(([k,v])=>`<div class="spec-item"><div class="l">${k}</div><div class="v">${v}</div></div>`).join('')}
+        </div>
+        <div class="whats-inside">
+          <h4>What's inside?</h4>
+          <div class="inside-tags">
+            <span>📍 GPS Module</span><span>🚨 SOS Button</span><span>🔋 Battery Pack</span><span>📶 Network Chip</span><span>💧 Waterproof Seal</span>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-dark" style="flex:1;" data-add="${p.id}">Add to Cart</button>
+          <button class="btn btn-primary" style="flex:1;" data-buy="${p.id}">Buy Now</button>
+        </div>
+        <p style="font-size:11.5px;color:var(--muted-light);margin-top:14px;">GPS accuracy and connectivity depend on network/GPS availability.</p>
+      </div>
+    </div>`;
+  document.getElementById('modalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+/* ================= TOAST ================= */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+/* ================= EVENTS ================= */
+document.addEventListener('click', (e)=>{
+  const add = e.target.closest('[data-add]');
+  if(add){ addToCart(add.dataset.add); }
+
+  const buy = e.target.closest('[data-buy]');
+  if(buy){ addToCart(buy.dataset.buy); closeModal(); document.getElementById('cartBtn').click(); }
+
+  const view = e.target.closest('[data-view]');
+  if(view){ openProductModal(view.dataset.view); }
+
+  const cardClick = e.target.closest('.product-media');
+  if(cardClick && !e.target.closest('.wish-btn')){
+    const card = cardClick.closest('.product-card');
+    if(card) openProductModal(card.dataset.id);
+  }
+
+  const wish = e.target.closest('[data-wish]');
+  if(wish){ toggleWishlist(wish.dataset.wish); }
+
+  const inc = e.target.closest('[data-inc]');
+  if(inc){ cart[inc.dataset.inc].qty++; saveState(); renderCart(); }
+
+  const dec = e.target.closest('[data-dec]');
+  if(dec){ const i=dec.dataset.dec; cart[i].qty--; if(cart[i].qty<=0) cart.splice(i,1); saveState(); renderCart(); }
+
+  const rem = e.target.closest('[data-remove]');
+  if(rem){ cart.splice(rem.dataset.remove,1); saveState(); renderCart(); }
+
+  const filterBtn = e.target.closest('.shop-filter-btn');
+  if(filterBtn){
+    activeAgeFilter = filterBtn.dataset.age;
+    document.querySelectorAll('#ageChips .chip').forEach(c=>c.classList.toggle('active', c.dataset.age===activeAgeFilter));
+    renderProductGrid();
+  }
+
+  const chip = e.target.closest('#ageChips .chip');
+  if(chip){
+    if(chip.dataset.feature){
+      activeFeatureFilter = !activeFeatureFilter;
+      chip.classList.toggle('active', activeFeatureFilter);
+    } else {
+      activeAgeFilter = chip.dataset.age;
+      document.querySelectorAll('#ageChips .chip[data-age]').forEach(c=>c.classList.toggle('active', c===chip));
+    }
+    renderProductGrid();
+  }
+
+  if(e.target.id==='modalCloseBtn' || e.target.id==='modalOverlay'){ closeModal(); }
+
+  if(e.target.dataset.legal){
+    e.preventDefault();
+    showToast(e.target.dataset.legal==='privacy' ? 'Privacy Policy — placeholder page' : 'Terms & Conditions — placeholder page');
+  }
+});
+
+document.getElementById('searchInput').addEventListener('input', renderProductGrid);
+document.getElementById('colorFilter').addEventListener('change', renderProductGrid);
+document.getElementById('sortFilter').addEventListener('change', renderProductGrid);
+
+/* cart drawer */
+const overlay = document.getElementById('overlay');
+const cartDrawer = document.getElementById('cartDrawer');
+document.getElementById('cartBtn').addEventListener('click', ()=>{ cartDrawer.classList.add('show'); overlay.classList.add('show'); });
+document.getElementById('closeCart').addEventListener('click', ()=>{ cartDrawer.classList.remove('show'); overlay.classList.remove('show'); });
+overlay.addEventListener('click', ()=>{ cartDrawer.classList.remove('show'); overlay.classList.remove('show'); closeModal(); });
+document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+  if(cart.length) showToast('Checkout UI only — connect a real payment gateway to complete orders.');
+});
+document.getElementById('wishlistBtn').addEventListener('click', ()=>{
+  document.getElementById('shop').scrollIntoView({behavior:'smooth'});
+  showToast(wishlist.length ? `${wishlist.length} item(s) in your wishlist` : 'Your wishlist is empty');
+});
+document.getElementById('loginBtn').addEventListener('click', ()=>{
+  showToast('Continue with Google — requires OAuth client setup (see docs)');
+});
+
+/* mobile menu */
+const hamburger = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', ()=>{
+  const open = mobileMenu.classList.toggle('show');
+  hamburger.setAttribute('aria-expanded', open);
+});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>mobileMenu.classList.remove('show')));
+
+/* demo */
+document.getElementById('tryDemoBtn').addEventListener('click', ()=>{
+  document.getElementById('demo').scrollIntoView({behavior:'smooth', block:'center'});
+  document.getElementById('demoTime').textContent = 'Just now';
+  const batt = Math.floor(60+Math.random()*35);
+  document.getElementById('demoBatt').textContent = batt+'%';
+  document.querySelector('.batt-fill').style.width = batt+'%';
+});
+document.getElementById('sosBtn').addEventListener('click', ()=>{
+  showToast('Simulated SOS sent to linked parent contacts (demo only)');
+});
+
+/* builder */
+const builderState = {age:'4-7', color:'#2F6FED', pattern:'Solid', size:'Small', acc:[]};
+const priceBase = {'4-7':2499, '8-11':3299, '12-15':3799};
+function updateBuilder(){
+  document.getElementById('builderBag').style.setProperty('--bag-color', builderState.color);
+  const accText = builderState.acc.length ? ' + ' + builderState.acc.join(', ') : '';
+  document.getElementById('builderSummary').textContent =
+    `${builderState.age} yrs · ${builderState.colorName||'Custom'} · ${builderState.pattern} · ${builderState.size}${accText}`;
+  let price = priceBase[builderState.age];
+  if(builderState.size==='Medium') price += 300;
+  if(builderState.size==='Large') price += 600;
+  if(builderState.pattern!=='Solid') price += 150;
+  price += builderState.acc.length * 250;
+  document.getElementById('builderPrice').textContent = fmt(price);
+  builderState.price = price;
+}
+function wireOptGroup(id, key, extra){
+  document.getElementById(id).querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.getElementById(id).querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      builderState[key] = btn.dataset.v;
+      if(extra) extra(btn);
+      updateBuilder();
+    });
+  });
+}
+wireOptGroup('bAge','age');
+wireOptGroup('bColor','color', (btn)=>{ builderState.colorName = btn.dataset.name; });
+wireOptGroup('bPattern','pattern');
+wireOptGroup('bSize','size');
+document.getElementById('bAcc').querySelectorAll('button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    btn.classList.toggle('active');
+    const v = btn.dataset.v;
+    const i = builderState.acc.indexOf(v);
+    if(i>-1) builderState.acc.splice(i,1); else builderState.acc.push(v);
+    updateBuilder();
+  });
+});
+document.getElementById('builderAddBtn').addEventListener('click', ()=>{
+  addToCart('custom-'+Date.now(), {
+    id:'custom-'+Date.now(), name:'Custom TrackieBag', price:builderState.price,
+    color:builderState.color, metaLabel:`${builderState.age} yrs · ${builderState.pattern}`
+  });
+});
+updateBuilder();
+
+/* contact form validation */
+document.getElementById('contactForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  let valid = true;
+  const name = document.getElementById('cf-name');
+  const email = document.getElementById('cf-email');
+  const message = document.getElementById('cf-message');
+
+  document.getElementById('f-name').classList.toggle('invalid', !name.value.trim());
+  if(!name.value.trim()) valid = false;
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+  document.getElementById('f-email').classList.toggle('invalid', !emailOk);
+  if(!emailOk) valid = false;
+
+  document.getElementById('f-message').classList.toggle('invalid', !message.value.trim());
+  if(!message.value.trim()) valid = false;
+
+  const status = document.getElementById('formStatus');
+  if(valid){
+    status.textContent = 'Thanks — your message has been noted. This is a demo form; connect it to a real backend to receive submissions.';
+    status.className = 'form-status show ok';
+    e.target.reset();
+  } else {
+    status.textContent = 'Please fix the highlighted fields and try again.';
+    status.className = 'form-status show';
+    status.style.background = 'rgba(232,56,75,0.1)';
+    status.style.color = '#E8384B';
+  }
+});
+
+/* scroll reveal */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+},{threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
+
+/* init */
+renderProductGrid();
+renderFAQ();
+renderCart();
+if(wishlist.length){ document.getElementById('wishCount').textContent = wishlist.length; document.getElementById('wishCount').style.display='flex'; }
+</script>
+</body>
+</html>
